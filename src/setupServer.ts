@@ -15,6 +15,8 @@ import HTTP_STATUS from "http-status-codes";
 import "express-async-errors";
 import compression from "compression";
 
+const SERVER_PORT = 5000;
+
 export class ChattyServer {
   private app: Application;
   constructor(app: Application) {
@@ -60,9 +62,20 @@ export class ChattyServer {
 
   private globalErrorHandler(app: Application): void {}
 
-  private startServer(app: Application): void {}
+  private async startServer(app: Application): Promise<void> {
+    try {
+      const httpServer: http.Server = new http.Server(app);
+      this.startHttpServer(httpServer);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   private createSockerIO(httpServer: http.Server): void {}
 
-  private startHttpServer(httpServer: http.Server): void {}
+  private startHttpServer(httpServer: http.Server): void {
+    httpServer.listen(SERVER_PORT, () => {
+      console.log(`Server started on port ${SERVER_PORT}`);
+    });
+  }
 }
