@@ -1,26 +1,22 @@
-import {
-  Application,
-  json,
-  urlencoded,
-  Response,
-  Request,
-  NextFunction,
-} from "express";
-import http from "http";
-import cors from "cors";
-import helmet from "helmet";
-import hpp from "hpp";
-import cookieSession from "cookie-session";
-import HTTP_STATUS from "http-status-codes";
-import "express-async-errors";
-import compression from "compression";
-import { config } from "./config";
-import { Server } from "socket.io";
-import { createClient } from "redis";
-import { createAdapter } from "@socket.io/redis-adapter";
-import applicationRoutes from "./routes";
+import { Application, json, urlencoded, Response, Request, NextFunction } from 'express';
+import http from 'http';
+import cors from 'cors';
+import helmet from 'helmet';
+import hpp from 'hpp';
+import cookieSession from 'cookie-session';
+import HTTP_STATUS from 'http-status-codes';
+import 'express-async-errors';
+import compression from 'compression';
+import { config } from './config';
+import { Server } from 'socket.io';
+import { createClient } from 'redis';
+import { createAdapter } from '@socket.io/redis-adapter';
+import applicationRoutes from './routes';
+import { CustomError, IErrorResponse } from './shared/globals/helpers/error-handler';
+import Logger from 'bunyan';
 
 const SERVER_PORT = 5000;
+const log: Logger = config.createLogger('server');
 
 export class ChattyServer {
   private app: Application;
@@ -39,10 +35,10 @@ export class ChattyServer {
   private securityMiddleware(app: Application): void {
     app.use(
       cookieSession({
-        name: "session",
+        name: 'session',
         keys: [config.SECRET_KEY_ONE!, config.SECRET_KEY_ONE!],
         maxAge: 24 * 7 * 3600000,
-        secure: config.NODE_ENV !== "development",
+        secure: config.NODE_ENV !== 'development'
       })
     );
 
@@ -52,14 +48,14 @@ export class ChattyServer {
       cors({
         origin: config.CLIENT_URL,
         credentials: true,
-        methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
+        methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS']
       })
     );
   }
 
   private standardMiddleware(app: Application): void {
-    app.use(json({ limit: "50mb" }));
-    app.use(urlencoded({ extended: true, limit: "50mb" }));
+    app.use(json({ limit: '50mb' }));
+    app.use(urlencoded({ extended: true, limit: '50mb' }));
     app.use(compression());
   }
 
@@ -67,7 +63,20 @@ export class ChattyServer {
     applicationRoutes(app);
   }
 
-  private globalErrorHandler(app: Application): void {}
+  private globalErrorHandler(app: Application): void {
+    app.all('*', (req: Request, res: Response) => {
+      res.status(HTTP_STATUS.NOT_FOUND).json({
+        message: `Route ${req.originalUrl} not found.`
+      });
+    });
+
+    app.use((error: IErrorResponse, req: Request, res: Response, next: NextFunction) => {
+      if (error instanceof CustomError) {
+        return res.status(error.statusCode).json(error.serializeErrors());
+      }
+      next();
+    });
+  }
 
   private async startServer(app: Application): Promise<void> {
     try {
@@ -76,7 +85,7 @@ export class ChattyServer {
       this.socketIOConnections(socketIO);
       this.startHttpServer(httpServer);
     } catch (error) {
-      console.log(error);
+      log.error(error);
     }
   }
 
@@ -84,8 +93,8 @@ export class ChattyServer {
     const io: Server = new Server(httpServer, {
       cors: {
         origin: config.CLIENT_URL,
-        methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
-      },
+        methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS']
+      }
     });
 
     const pubClient = createClient({ url: config.REDIS_HOST });
@@ -96,9 +105,9 @@ export class ChattyServer {
   }
 
   private startHttpServer(httpServer: http.Server): void {
-    console.log(`Server has started with process ${process.pid}`);
+    log.info(`Server has started with process ${process.pid}`);
     httpServer.listen(SERVER_PORT, () => {
-      console.log(`Server started on port ${SERVER_PORT}`);
+      log.info(`Server started on port ${SERVER_PORT}`);
     });
   }
 
