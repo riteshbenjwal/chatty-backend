@@ -33,6 +33,8 @@
       "@service/*": ["src/shared/services/*"],
       "@socket/*": ["src/shared/sockets/*"],
       "@workers/*": ["src/shared/workers/*"],
+      "@auth/*": ["src/features/auth/*"],
+      "@user/*": ["src/features/user/*"],
       "@root/*": ["src/*"]
     }
   }
