@@ -44,13 +44,13 @@ export class ChattyServer {
 
     app.use(helmet());
     app.use(hpp());
-    app.use(
-      cors({
-        origin: config.CLIENT_URL,
-        credentials: true,
-        methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS']
-      })
-    );
+    // app.use(
+    //   cors({
+    //     origin: config.CLIENT_URL,
+    //     credentials: true,
+    //     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS']
+    //   })
+    // );
   }
 
   private standardMiddleware(app: Application): void {
