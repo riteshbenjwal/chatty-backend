@@ -9,6 +9,8 @@ import JWT from 'jsonwebtoken';
 import HTTP_STATUS from 'http-status-codes';
 import { IUserDocument } from '@user/interfaces/user.interface';
 import { userService } from '@service/db/user.service';
+import { forgotPasswordTemplate } from '@service/emails/templates/forget-password/forget-password-templates';
+import { emailQueue } from '@service/queues/email.queue';
 
 export class SignIn {
   @joiValidation(loginSchema)
@@ -53,6 +55,11 @@ export class SignIn {
         uId: existingUser!.uId,
         createdAt: existingUser!.createdAt
       } as IUserDocument;
+
+      const resetLink = `${config.CLIENT_URL}/reset-password?token=12131314551`;
+      const template: string = forgotPasswordTemplate.passwordResetTemplate(existingUser.username!, resetLink);
+
+      emailQueue.addEmailJob();
 
       res.status(HTTP_STATUS.OK).json({
         message: 'User logged in successfully',
