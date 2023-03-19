@@ -10,7 +10,7 @@ withCredentials: true
 {
   "username": "steve",
   "password": "qwerty",
-  "email": "steve@test.com",
+  "email": "marjorie.batz@ethereal.email",
   "avatarColor": "blue",
   "avatarImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA0gAAAMyAQMAAABtkHM/AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAAFiS0dEAf8CLd4AAABrSURBVBgZ7cGBAAAAAMOg+1NP4AjVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjgBSwwABwrL8wAAAAABJRU5ErkJggg=="
 }
@@ -45,11 +45,11 @@ Accept: application/json
 withCredentials: true
 
 {
-  "email": "manny@test.com"
+  "email": "nathaniel50@ethereal.email"
 }
 
 ###
-POST {{baseUrl}}/{{urlPath}}/reset-password/d6b4bdcaca3f93fb5a322ccba5cd3768f76ca5ea
+POST {{baseUrl}}/{{urlPath}}/reset-password/7a71fb4905b168cc9697774707baf043c99a5eb7
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
