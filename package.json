@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon -r tsconfig-paths/register src/app.ts | bunyan -o short",
-    "start": "node src/app.ts",
+    "start": "node build/app.ts",
     "lint:check": "eslint \"src/**/*.ts\"",
     "lint:fix": "eslint \"src/**/*.ts\" --fix",
     "prettier:check": "prettier --check \"src/**/*.{ts,json}\"",
@@ -64,6 +64,7 @@
     "@types/jsonwebtoken": "^9.0.1",
     "@types/lodash": "^4.14.191",
     "@types/nodemailer": "^6.4.7",
+    "@types/redis-info": "^3.0.0",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",
     "eslint": "^8.35.0",

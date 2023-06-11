@@ -45,25 +45,47 @@ Accept: application/json
 withCredentials: true
 
 ###
-DELETE {{baseUrl}}/{{urlPath}}/post/62e805df2ddd231fc9348392
+DELETE {{baseUrl}}/{{urlPath}}/post/648577f7623de4e745c46db2
 Content-Type: application/json
 Accept: application/json
 withCredentials: true
 
+
 ###
-PUT {{baseUrl}}/{{urlPath}}/post/image/62e813ce588c54290311727d
+PUT {{baseUrl}}/{{urlPath}}/post/64857b65426736bed76b54b4
 Content-Type: application/json
 Accept: application/json
 withCredentials: true,
 
 {
-  "post": "post with image",
+  "post": "Test",
   "bgColor": "red",
-  "privacy": "Public",
+  "privacy": "public",
   "gifUrl": "",
-  "profilePicture": "https://res.cloudinary.com/dyamr9ym3/image/upload/v1659189696/62e539c0d8b514f6e42e3b5b",
-  "feelings": "sad",
-  "imgId": "p8jktvsccwqp3ayja0iq",
-  "imgVersion": "1659462367",
-  "image": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA0gAAAMyAQMAAABtkHM/AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAAFiS0dEAf8CLd4AAABrSURBVBgZ7cGBAAAAAMOg+1NP4AjVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjgBSwwABwrL8wAAAAABJRU5ErkJggg=="
+  "profilePicture": "",
+  "feelings": "sad"
 }
+
+###
+PUT {{baseUrl}}/{{urlPath}}/post/image/<postId>
+Content-Type: application/json
+Accept: application/json
+withCredentials: true,
+
+{
+  "post": "",
+  "bgColor": "",
+  "privacy": "",
+  "gifUrl": "",
+  "profilePicture": "<cloudinary-user-profile-picture-url>",
+  "feelings": "",
+  "imgId": "<imgId-form-post>",
+  "imgVersion": "<imgVersion-for-post>",
+  "image": "<base64-encoded-string>"
+}
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/post/<postId>
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
