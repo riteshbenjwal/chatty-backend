@@ -8,8 +8,8 @@ import { authService } from '@service/db/auth.service';
 import { userService } from '@service/db/user.service';
 import { mergedAuthAndUserData } from '@root/mocks/user.mock';
 
-const USERNAME = 'Manny';
-const PASSWORD = 'manny1';
+const USERNAME = 'steve';
+const PASSWORD = 'qwerty1';
 const WRONG_USERNAME = 'ma';
 const WRONG_PASSWORD = 'ma';
 const LONG_PASSWORD = 'mathematics1';
