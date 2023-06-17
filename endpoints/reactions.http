@@ -1,0 +1,47 @@
+@baseUrl = http://localhost:5000
+@urlPath = api/v1
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/<postId>
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/single/reaction/username/<username-of-logged-in-user>/<postId>
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+GET {{baseUrl}}/{{urlPath}}/post/reactions/username/<username-of-logged-in-user>
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+###
+POST {{baseUrl}}/{{urlPath}}/post/reaction
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+# type - like | love | wow | happy | sad | angry
+# previousReaction (if it exist) - like | love | wow | happy | sad | angry
+# postReactions - increment new reaction by 1 and decrement previous reaction by 1
+
+{
+  "userTo": "648d99fb149fcd820c846f26",
+  "postId": "648d9a14149fcd820c846f2b",
+  "type": "wow",
+  "previousReaction": "sad",
+  "postReactions": {"like": 0,"love": 0,"happy": 0,"sad": 0,"wow": 1,"angry": 0},
+  "profilePicture": "https://res.cloudinary.com/dyamr9ym3/image/upload/v1659189696/62e539c0d8b514f6e42e3b5b"
+}
+
+###
+DELETE {{baseUrl}}/{{urlPath}}/post/reaction/<postId>/<previousReaction>/{"like": 0,"love": 0,"happy": 0,"sad": 0,"wow": 0,"angry": 0}
+Content-Type: application/json
+Accept: application/json
+withCredentials: true
+
+{}
