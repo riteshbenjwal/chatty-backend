@@ -10,7 +10,6 @@ class ReactionWorker {
     try {
       const { data } = job;
 
-      console.log('i am here ');
       await reactionService.addReactionDataToDB(data);
 
       job.progress(100);

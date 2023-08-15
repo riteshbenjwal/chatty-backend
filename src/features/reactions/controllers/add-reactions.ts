@@ -1,18 +1,18 @@
 import { IReactionDocument, IReactionJob } from '@reaction/interfaces/reaction.interface';
-import { ReactionsCache } from '@service/redis/reaction.cache';
+import { ReactionCache } from '@service/redis/reaction.cache';
 import { Request, Response } from 'express';
 import { ObjectId } from 'mongodb';
 import HTTP_STATUS from 'http-status-codes';
 import { reactionQueue } from '@service/queues/reaction.queue';
 
-const reactionCache = new ReactionsCache();
+const reactionCache = new ReactionCache();
 
 export class Add {
   public async reaction(req: Request, res: Response): Promise<void> {
     const { userTo, postId, type, previousReaction, postReactions, profilePicture } = req.body;
 
     const reactionObject: IReactionDocument = {
-      // _id: new ObjectId(),
+      _id: new ObjectId(),
       postId,
       type,
       avataColor: req.currentUser!.avatarColor,
