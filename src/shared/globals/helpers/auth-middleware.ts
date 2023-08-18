@@ -21,6 +21,7 @@ export class AuthMiddleware {
   }
 
   public checkAuthentication(req: Request, _res: Response, next: NextFunction): void {
+    console.log('AuthMiddleware :: checkAuthentication :: called');
     if (!req.currentUser) {
       throw new NotAuthorizedError('Authentication is required to access this route.');
     }
