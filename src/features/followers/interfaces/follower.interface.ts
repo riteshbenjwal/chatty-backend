@@ -21,13 +21,13 @@ export interface IFollower {
 }
 
 export interface IFollowerData {
-  avatarColor: string;
+  avatarColor: string | undefined;
   followersCount: number;
   followingCount: number;
   profilePicture: string;
   postCount: number;
-  username: string;
-  uId: string;
+  username: string | undefined;
+  uId: string | undefined;
   _id?: mongoose.Types.ObjectId;
   userProfile?: IUserDocument;
 }
